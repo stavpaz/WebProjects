@@ -1,0 +1,134 @@
+{% extends 'business_base.html' %}
+{% block jsLink %}
+    <script defer src="../../../static/js/general.js"></script>
+    <script defer src="../../../static/js/validation.js"></script>
+
+{% endblock %}
+{% block title %}Business Profile{% endblock %}
+
+{% block left %}
+    <fieldset class="MyBusinessField">
+        <h1 id="priceList">Price List 💅🏻</h1>
+
+        <table id="editTable">
+            <tr>
+                <td class="tableHeader"> Service</td>
+                <td class="tableHeader"> &#8362</td>
+            </tr>
+
+            {% for service in services %}
+
+                <tr>
+                    <form method="post" action="/business_edit_service/{{ loop.index }}">
+                        <td>
+                            <li>{{ service.serviceName }}</li>
+                            <input id="service2" name="currentService{{ loop.index }}"
+                                   value="{{ service.serviceName }}"
+                                   type="hidden"> <input id="service2" type="text"
+                                                         name="service{{ loop.index }}"
+                                                         maxlngth="90"
+                                                         placeholder="service"><br></td>
+                        <td>
+                            <li>{{ service.Price }}</li>
+                            <input id="price2" type="number" name="price{{ loop.index }}"
+                                   placeholder="price" min="40" max="200"><br></td>
+                        <td>
+
+                            <button id="editService"><a>Edit</a></button>
+                        </td>
+
+
+                    </form>
+
+
+                </tr>
+
+            {% endfor %}
+        </table>
+        <h1 id="priceList">Delete Service 💅🏻</h1>
+        {% for service in services %}
+            <li>{{ service.serviceName }}</li>
+            <form method="post" action="/business_delete_service/{{ loop.index }}">
+                <input type="hidden" name="serviceName" value="{{ service.serviceName }}">
+                <button id="editService"><a>Delete</a></button>
+            </form>
+        {% endfor %}
+        <table>
+            <h1 id="priceList">New Service 💅🏻</h1>
+            <form method="post" action="/business_add_service">
+                <td>
+
+                    <input id="service2" name="newService"
+                           type="text" placeholder="service" required>
+                    <br></td>
+                <td>
+
+                    <input id="price2" type="number" name="newprice"
+                           placeholder="price" min="40" max="200" required><br></td>
+                <td>
+
+                    <button id="editService"><a>Add</a></button>
+                </td>
+
+
+            </form>
+        </table>
+    </fieldset>
+
+
+
+{% endblock %}
+{% block up %}
+    {% if message %}
+        <h3 style="color: red; margin-left: 10% ;margin-top:5% ">{{ message }}</h3>
+    {% endif %}
+    <fieldset class="MyBusinessField">
+        <h1>About Me:</h1><br>
+        <form method="post" action="/business_edit_about">
+            <textarea name="feedText" id="description" cols="5" rows="8"></textarea>
+            <button id="editProfile"><a>Edit Profile</a></button>
+
+
+        </form>
+    </fieldset>
+{% endblock %}
+
+{% block right %}
+    <div class="navDisplay1">
+        <form action="/pic1">
+            <div class="MyImg">
+                <img src={{ images[0][0] }}>
+                <span class="spanStyle"></span>
+            </div>
+            <input type="text" name="pic1" maxlength="500" required>
+            <button id="editService"><a>Edit</a></button>
+        </form>
+        <form action="/pic2">
+            <div class="MyImg">
+                <img src={{ images[1][0] }}>
+                <span class="spanStyle"></span>
+            </div>
+            <input type="text" name="pic2" maxlength="500" required>
+            <button id="editService"><a>Edit</a></button>
+        </form>
+    </div>
+    <div class="navDisplay1">
+        <form action="/pic3">
+            <div class="MyImg">
+                <img src={{ images[2][0] }}>
+                <span class="spanStyle"></span>
+            </div>
+            <input type="text" name="pic3" maxlength="500" required>
+            <button id="editService"><a>Edit</a></button>
+        </form>
+        <form action="/pic4">
+            <div class="MyImg">
+                <img src={{ images[3][0] }}>
+                <span class="spanStyle"></span>
+            </div>
+            <input type="text" name="pic4" maxlength="500" required>
+            <button id="editService"><a>Edit</a></button>
+        </form>
+    </div>
+
+{% endblock %}
